@@ -6,6 +6,13 @@
         <ion-list id="menu-list">
           <ion-list-header>
             <ion-label>Budget UI</ion-label>
+            
+            <ion-chip>
+              <ion-avatar>
+                <img alt="Avatar" src="https://avatars.githubusercontent.com/u/44713851?v=4" />
+              </ion-avatar>
+              <ion-label>Melvin Suter</ion-label>
+            </ion-chip>
           </ion-list-header>
 
           @for (page of appPages; track page.title; let i = $index) {
@@ -25,6 +32,17 @@
           }
         </ion-list>
       </ion-content>
+
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons>
+            <ion-button color="primary">
+              <ion-icon name="log-out" class="ion-padding-end"></ion-icon>
+              Logout
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
     </ion-menu>
 
     <!-- Router Outlet -->

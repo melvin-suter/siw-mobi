@@ -6,7 +6,12 @@ import { expensesPath } from './expense/expense.routes';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   IonApp,
+  IonAvatar,
+  IonButton,
+  IonButtons,
+  IonChip,
   IonContent,
+  IonFooter,
   IonIcon,
   IonItem,
   IonLabel,
@@ -15,7 +20,8 @@ import {
   IonMenu,
   IonMenuToggle,
   IonRouterOutlet,
-  IonSplitPane
+  IonSplitPane,
+  IonToolbar
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -36,7 +42,13 @@ import {
     IonMenuToggle,
     IonItem,
     IonIcon,
-    IonRouterOutlet
+    IonRouterOutlet,
+    IonButton,
+    IonButtons,
+    IonToolbar,
+    IonFooter,
+    IonChip,
+    IonAvatar,
   ]
 })
 export default class AppComponent {
