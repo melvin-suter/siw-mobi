@@ -1,40 +1,39 @@
 import { Component, inject } from '@angular/core';
-import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFab, IonFabButton } from '@ionic/angular/standalone';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { logoGithub, logoGoogle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { add, alertCircleOutline, search, swapVertical } from 'ionicons/icons';
+import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonRow } from '@ionic/angular/standalone';
+import { AuthService } from 'src/app/shared/service/auth.service';
 
+interface LoginProvider {
+  name: string;
+  logo: string;
+  loginMethod: (callback: () => Promise<boolean>) => void;
+}
 
 @Component({
-  selector: 'app-logint',
+  selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [
-    ReactiveFormsModule,
-
-    // Aaaand this list is why I hate angular and UI frameworks :)
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonRow,
-    IonGrid,IonCol,
-    IonSelect,
-    IonSelectOption,
-    IonIcon,
-    IonItem,
-    IonContent,
-    IonInput,
-    IonLabel,
-    IonFab,
-    IonFabButton,
-  ]
+  standalone: true,
+  imports: [IonContent, IonGrid, IonRow, IonCol, IonButton, IonIcon]
 })
-export default class CategoryListComponent {
+export default class LoginComponent {
   // DI
-  private readonly modalCtrl = inject(ModalController);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  // Lifecycle
+  readonly loginProviders: LoginProvider[] = [
+    { name: 'GitHub', logo: 'logo-github', loginMethod: this.authService.loginWithGithub },
+    { name: 'Google', logo: 'logo-google', loginMethod: this.authService.loginWithGoogle }
+  ];
 
   constructor() {
+    addIcons({ logoGithub, logoGoogle });
   }
 
+  login(loginProvider: LoginProvider): void {
+    const returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] ?? '/';
+    loginProvider.loginMethod(() => this.router.navigateByUrl(returnUrl));
+  };
 }

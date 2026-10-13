@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { categoriesPath } from './category/category.routes';
 import { expensesPath } from './expense/expense.routes';
 import { authPath } from './auth/auth.routes';
+import { authGuard } from './shared/auth.guard';
 
 export const defaultPath = categoriesPath;
 
@@ -13,15 +14,17 @@ const appRoutes: Routes = [
   },
   {
     path: categoriesPath,
-    loadChildren: () => import('./category/category.routes')
+    loadChildren: () => import('./category/category.routes'),
+    canActivate: [authGuard],
   },
   {
     path: expensesPath,
-    loadChildren: () => import('./expense/expense.routes')
+    loadChildren: () => import('./expense/expense.routes'),
+    canActivate: [authGuard],
   },
   {
     path: authPath,
-    loadChildren: () => import('./auth/auth.routes')
+    loadChildren: () => import('./auth/auth.routes'),
   },
   {
     path: '**',

@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" type="overlay"  [disabled]="(authService.currentUser() | async) === null">
       <!-- Navigation List -->
       <ion-content>
         <ion-list id="menu-list">
@@ -9,9 +9,9 @@
             
             <ion-chip>
               <ion-avatar>
-                <img alt="Avatar" src="https://avatars.githubusercontent.com/u/44713851?v=4" />
+                <img alt="Avatar" [src]="(authService.currentUser() | async)?.photoURL" />
               </ion-avatar>
-              <ion-label>Melvin Suter</ion-label>
+              <ion-label>{{ (authService.currentUser() | async)?.displayName }}</ion-label>
             </ion-chip>
           </ion-list-header>
 
@@ -36,7 +36,7 @@
       <ion-footer>
         <ion-toolbar>
           <ion-buttons>
-            <ion-button color="primary">
+            <ion-button color="primary" (click)="authService.logout()">
               <ion-icon name="log-out" class="ion-padding-end"></ion-icon>
               Logout
             </ion-button>

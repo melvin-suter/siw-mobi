@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, search, swapVertical } from 'ionicons/icons';
 import CategoryModalComponent from '../category-modal/category-modal.component';
+import { APIService } from 'src/app/shared/service/api.service';
+import { Category } from 'src/app/shared/domain';
 
 
 @Component({
@@ -30,11 +32,11 @@ import CategoryModalComponent from '../category-modal/category-modal.component';
   ]
 })
 export default class CategoryListComponent {
+
   // DI
   private readonly modalCtrl = inject(ModalController);
 
   // Lifecycle
-
   constructor() {
     // Add all used Ionic icons
     addIcons({ swapVertical, search, alertCircleOutline, add });
@@ -47,5 +49,19 @@ export default class CategoryListComponent {
     modal.present();
     const { role } = await modal.onWillDismiss();
     console.log('role', role);
+  }
+
+  // New stuff ----------
+  private api = inject(APIService);
+
+  ngOnInit() {
+    this.loadCategories();
+  }
+
+  loadCategories() {
+    this.api.fetch<Category[]>('categories', 'GET').subscribe({
+      next: (data) => console.log(data),
+      error: (err) => console.error(err),
+    });
   }
 }
