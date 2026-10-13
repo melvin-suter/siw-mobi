@@ -1,14 +1,33 @@
 import { Component, inject } from '@angular/core';
 import { addMonths, set } from 'date-fns';
-import { ModalController } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, arrowBack, arrowForward, pricetag, search, swapVertical } from 'ionicons/icons';
+import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-expense-list',
   templateUrl: './expense-list.component.html',
-  imports: [ReactiveFormsModule]
+  imports: [
+    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonRow,
+    IonGrid,IonCol,
+    IonSelect,
+    IonSelectOption,
+    IonIcon,
+    IonItem,
+    IonContent,
+    IonInput,
+    IonLabel,
+    IonFooter,
+    IonButton,
+    IonButtons,
+    IonFab,
+    IonFabButton,
+  ]
 })
 export default class ExpenseListComponent {
   // DI
