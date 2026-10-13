@@ -9,9 +9,10 @@ import appRoutes from './app/app.routes';
 import { registerLocaleData } from '@angular/common';
 import { PageTitleStrategy } from './app/shared/service/page-title-strategy.service';
 import AppComponent from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { authInterceptor } from './app/shared/interceptor/auth.interceptor';
 
 if (environment.production) enableProdMode();
 
@@ -25,10 +26,10 @@ bootstrapApplication(AppComponent, {
     { provide: TitleStrategy, useClass: PageTitleStrategy },
     provideIonicAngular(),
     provideRouter(appRoutes, withPreloading(PreloadAllModules)),
-    provideHttpClient(),
     importProvidersFrom(
       AngularFireModule.initializeApp(environment.firebaseConfig),
       AngularFireAuthModule,
     ),
+    provideHttpClient(withInterceptors([authInterceptor]))
   ]
 }).catch(err => console.error(err));

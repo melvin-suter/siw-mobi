@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { categoriesPath } from './category/category.routes';
 import { expensesPath } from './expense/expense.routes';
 import { authPath } from './auth/auth.routes';
-import { authGuard } from './shared/auth.guard';
+import { authGuard } from './shared/guard/auth.guard';
 
 export const defaultPath = categoriesPath;
 
