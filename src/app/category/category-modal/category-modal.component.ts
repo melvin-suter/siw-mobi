@@ -16,6 +16,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { close, save, text, trash } from 'ionicons/icons';
+import { ActionSheetService } from 'src/app/shared/service/action-sheet.service';
 
 export interface Category {
   id: number;
@@ -45,6 +46,7 @@ export default class CategoryModalComponent implements OnInit {
   // DI
   private readonly modalCtrl = inject(ModalController);
   private readonly fb = inject(FormBuilder);
+  private readonly actionSheetService = inject(ActionSheetService);
 
   // Input
   @Input() category?: Category;
@@ -81,6 +83,13 @@ export default class CategoryModalComponent implements OnInit {
   }
 
   delete(): void {
-    this.modalCtrl.dismiss(this.category, 'delete');
+    
+          this.actionSheetService
+            .showDeletionConfirmation('Are you sure you want to delete this category?')
+            // Unneccessary
+            // .pipe(mergeMap(() => this.loadingIndicatorService.showLoadingIndicator({ message: 'Deleting category' })))
+            .subscribe( () => {
+               this.modalCtrl.dismiss(this.category, 'delete');
+            });
   }
 }

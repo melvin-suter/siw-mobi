@@ -7,6 +7,7 @@ import CategoryModalComponent from '../category-modal/category-modal.component';
 import { APIService } from 'src/app/shared/service/api.service';
 import { Category } from 'src/app/shared/domain';
 import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
+import { ActionSheetService } from 'src/app/shared/service/action-sheet.service';
 
 
 @Component({
@@ -65,7 +66,7 @@ export default class CategoryListComponent {
           return this.api.fetch('categories', 'PUT', data);
           break;
         case 'delete':
-          return this.api.fetch(`categories/${data.id}`, 'DELETE');
+            return this.api.fetch(`categories/${data.id}`, 'DELETE');
           break;
       }
       return null;
@@ -74,7 +75,7 @@ export default class CategoryListComponent {
       request.subscribe({
         next: () => {
           this.toast.create({
-              message: "Category saved",
+              message: role == "delete" ? "Category deleted" : "Category saved",
               duration: 3000,
               position: 'bottom',
               color: 'success',
@@ -85,7 +86,7 @@ export default class CategoryListComponent {
         },
         error: () => {
           this.toast.create({
-              message: "Could not save category",
+              message: role == "delete" ? "Could not delete category" : "Could not save category",
               duration: 5000,
               position: 'bottom',
               color: 'warning',
