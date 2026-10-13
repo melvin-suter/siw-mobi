@@ -9,7 +9,7 @@ export class APIService {
   private http = inject(HttpClient);
   private baseUrl = '/api';
 
-  fetch<T>(url: string,method: Method = 'GET',body?: unknown,params?: HttpParams ): Observable<T> {
+  fetch<T>(url: string,method: Method = 'GET',body?: unknown,params?: HttpParams | Record<string, string | number | boolean> ): Observable<T> {
     return this.http.request<T>(method, `${this.baseUrl}/${url}`, { body, params });
   }
 }

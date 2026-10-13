@@ -1,8 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Categories</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-page-header page_title="Categories"/>
 
 <ion-content>
     <ion-grid>
@@ -10,34 +6,59 @@
             <ion-col>
                 <ion-item>
                     <ion-icon slot="start" name="swap-vertical"></ion-icon>
-                    <ion-select interface="popover" placeholder="Sort">
-                        <ion-select-option value="created_at_desc">Created at (newest first)</ion-select-option>
-                        <ion-select-option value="created_at_asc">Created at (oldest first)</ion-select-option>
-                        <ion-select-option selected="true" value="name_asc">Name (A-Z)</ion-select-option>
-                        <ion-select-option value="name_desc">Name (Z-A)</ion-select-option>
+                    <ion-select interface="popover" placeholder="Sort" [value]="sort()" (ionChange)="sort.set($event.detail.value)">
+                        <ion-select-option value="createdAt,DESC">Created at (newest first)</ion-select-option>
+                        <ion-select-option value="createdAt,ASC">Created at (oldest first)</ion-select-option>
+                        <ion-select-option value="name,ASC">Name (A-Z)</ion-select-option>
+                        <ion-select-option value="name,DESC">Name (Z-A)</ion-select-option>
                     </ion-select>
                 </ion-item>
             </ion-col>
             <ion-col>
                 <ion-item>
-                        <ion-icon slot="start" name="search"></ion-icon>
-                        <ion-input placeholder="Search"/>
+                    <ion-icon slot="start" name="search"></ion-icon>
+                    <ion-input [value]="search()" (ionInput)="search.set($event.detail.value ?? '')" debounce="300" placeholder="Search"/>
                 </ion-item>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-                <ion-item>
-                    <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
-                    <ion-label>No categories found</ion-label>
-                </ion-item>
+                  @for (category of categories; track category.id) {
+                        <ion-item button detail (click)="openCategory(category)">
+                            <ion-label>{{ category.name }}</ion-label>
+                        </ion-item>
+                    } @empty {
+                        <ion-item>
+                            <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+                            <ion-label>No categories found</ion-label>
+                        </ion-item>
+                    }
             </ion-col>
         </ion-row>
     </ion-grid>
 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="newCategory()">
         <ion-fab-button>
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
+
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button [disabled]="page() === 0" (click)="page.set(page() - 1)">
+                <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title class="ion-text-center">{{ page() + 1 }} / {{ totalPages }}</ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button [disabled]="page() + 1 >= totalPages" (click)="page.set(page() + 1)">
+                <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

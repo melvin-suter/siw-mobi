@@ -4,13 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, arrowBack, arrowForward, pricetag, search, swapVertical } from 'ionicons/icons';
 import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
 
 @Component({
   selector: 'app-expense-list',
   templateUrl: './expense-list.component.html',
   imports: [
     ReactiveFormsModule,
-    IonHeader,
     IonToolbar,
     IonTitle,
     IonRow,
@@ -27,6 +27,7 @@ import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonC
     IonButtons,
     IonFab,
     IonFabButton,
+    PageHeaderComponent,
   ]
 })
 export default class ExpenseListComponent {

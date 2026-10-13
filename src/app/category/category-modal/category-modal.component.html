@@ -1,1 +1,48 @@
-Category Modal
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        <ion-icon slot="start" name="close"></ion-icon>
+        Cancel
+      </ion-button>
+    </ion-buttons>
+
+    @if(category){
+      <ion-title>Edit category</ion-title>
+    } @else {
+      <ion-title>Add category</ion-title>
+    }
+
+    <ion-buttons slot="end">
+      @if(category){
+        <ion-button [disabled]="form.invalid" (click)="save()">
+          <ion-icon slot="start" name="save"></ion-icon>
+          Save
+        </ion-button>
+      } @else {
+        <ion-button [disabled]="form.invalid" (click)="add()">
+          <ion-icon slot="start" name="save"></ion-icon>
+          Add
+        </ion-button>
+      }
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-icon name="text" slot="start"></ion-icon>
+      <ion-input formControlName="name" placeholder="Name" maxlength="40" required></ion-input>
+    </ion-item>
+  </form>
+
+  @if(category) {
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button color="danger" (click)="delete()">
+        <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+  }
+</ion-content>
