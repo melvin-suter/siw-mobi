@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-icon slot="start" name="swap-vertical"></ion-icon>
+                    <ion-select interface="popover" placeholder="Sort">
+                        <ion-select-option value="created_at_desc">Created at (newest first)</ion-select-option>
+                        <ion-select-option value="created_at_asc">Created at (oldest first)</ion-select-option>
+                        <ion-select-option selected="true" value="name_asc">Name (A-Z)</ion-select-option>
+                        <ion-select-option value="name_desc">Name (Z-A)</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                        <ion-icon slot="start" name="search"></ion-icon>
+                        <ion-input placeholder="Search"/>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+                    <ion-label>No categories found</ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
