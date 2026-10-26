@@ -23,7 +23,7 @@
         </ion-row>
         <ion-row>
             <ion-col>
-                  @for (category of categories; track category.id) {
+                    @for (category of categories; track category.id) {
                         <ion-item button detail (click)="openCategory(category)">
                             <ion-label>{{ category.name }}</ion-label>
                         </ion-item>

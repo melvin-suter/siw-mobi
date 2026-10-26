@@ -3,8 +3,9 @@ import { addMonths, set } from 'date-fns';
 import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, arrowBack, arrowForward, pricetag, search, swapVertical } from 'ionicons/icons';
-import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton, IonItemDivider, IonItemGroup, IonList } from '@ionic/angular/standalone';
 import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
+import { Expense } from 'src/app/shared/domain';
 
 @Component({
   selector: 'app-expense-list',
@@ -26,7 +27,10 @@ import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-
     IonButton,
     IonButtons,
     IonFab,
+    IonList,
     IonFabButton,
+    IonItemDivider,
+    IonItemGroup,
     PageHeaderComponent,
   ]
 })
@@ -45,6 +49,70 @@ export default class ExpenseListComponent {
   }
 
   // Actions
+  grouped_expenses:{date: string, expenses: Expense[]}[] = [
+    {
+      date: "2026-10-13",
+      expenses: [{
+        "id": "6acddeefccc7ce7159ea001c",
+          "createdAt": "2026-10-13T07:34:07.545",
+          "lastModifiedAt": "2026-10-13T07:34:07.545",
+          "amount": 330.61,
+          "category": {
+              "id": "6acddeeeccc7ce7159e9ffe6",
+              "createdAt": "2026-10-13T07:34:06.574",
+              "lastModifiedAt": "2026-10-13T07:34:06.574",
+              "name": "Unterhaltung"
+          },
+          "date": "2026-10-13",
+          "name": "Bergbahn"
+      },
+      {
+          "id": "6acddeeeccc7ce7159e9fff9",
+          "createdAt": "2026-10-13T07:34:06.796",
+          "lastModifiedAt": "2026-10-13T07:34:06.796",
+          "amount": 443.44,
+          "category": {
+              "id": "6acddeeeccc7ce7159e9ffdb",
+              "createdAt": "2026-10-13T07:34:06.494",
+              "lastModifiedAt": "2026-10-26T07:05:24.835",
+              "name": "Kleidung 1"
+          },
+          "date": "2026-10-13",
+          "name": "Schuhe"
+      }]
+    },{
+      date: "2026-10-12",
+      expenses: [{
+        "id": "6acddeefccc7ce7159ea001c",
+          "createdAt": "2026-10-12T07:34:07.545",
+          "lastModifiedAt": "2026-10-12T07:34:07.545",
+          "amount": 330.61,
+          "category": {
+              "id": "6acddeeeccc7ce7159e9ffe6",
+              "createdAt": "2026-10-12T07:34:06.574",
+              "lastModifiedAt": "2026-10-12T07:34:06.574",
+              "name": "Unterhaltung"
+          },
+          "date": "2026-10-12",
+          "name": "Bergbahn"
+      },
+      {
+          "id": "6acddeeeccc7ce7159e9fff9",
+          "createdAt": "2026-10-12T07:34:06.796",
+          "lastModifiedAt": "2026-10-12T07:34:06.796",
+          "amount": 443.44,
+          "category": {
+              "id": "6acddeeeccc7ce7159e9ffdb",
+              "createdAt": "2026-10-12T07:34:06.494",
+              "lastModifiedAt": "2026-10-26T07:05:24.835",
+              "name": "Kleidung 1"
+          },
+          "date": "2026-10-13",
+          "name": "Schuhe"
+      }]
+    }
+  ]
+  
 
   addMonths = (number: number): void => {
     this.date = addMonths(this.date, number);
