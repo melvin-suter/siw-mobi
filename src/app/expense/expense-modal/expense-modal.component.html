@@ -13,15 +13,25 @@
       <ion-title>Add expense</ion-title>
     }
 
+
+    
     <ion-buttons slot="end">
       @if(expense){
-        <ion-button [disabled]="form.invalid" (click)="save()">
-          <ion-icon slot="start" name="save"></ion-icon>
+        <ion-button [disabled]="form.invalid || showSpinner()" (click)="save()">
+          @if (showSpinner()) {
+            <ion-spinner slot="start" name="crescent"></ion-spinner>
+          } @else {
+            <ion-icon slot="start" name="save"></ion-icon>
+          }
           Save
         </ion-button>
       } @else {
-        <ion-button [disabled]="form.invalid" (click)="add()">
-          <ion-icon slot="start" name="save"></ion-icon>
+        <ion-button [disabled]="form.invalid || showSpinner()" (click)="add()">
+          @if (showSpinner()) {
+            <ion-spinner slot="start" name="crescent"></ion-spinner>
+          } @else {
+            <ion-icon slot="start" name="save"></ion-icon>
+          }
           Add
         </ion-button>
       }
@@ -34,23 +44,23 @@
   <form [formGroup]="form">
     <ion-item>
       <ion-icon name="text" slot="start"></ion-icon>
-      <ion-input formControlName="name" placeholder="Name" maxlength="40" required></ion-input>
+      <ion-input formControlName="name" placeholder="Name" maxlength="40" required #nameInput></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon name="pricetag" slot="start"></ion-icon>
 
       <ion-select
-        formControlName="category"
+        formControlName="categoryId"
         interface="popover"
         placeholder="Category">
         <ion-select-option [value]="null"></ion-select-option>
-        
-          <ion-select-option [value]="1">Cat 1</ion-select-option>
-          <ion-select-option [value]="2">Cat 2</ion-select-option>
+          @for(category of categories; track category.id) {
+            <ion-select-option [value]="category.id">{{category.name}}</ion-select-option>
+          }
         
       </ion-select>
 
-      <ion-button slot="end" size="small">
+      <ion-button slot="end" size="small" (click)="showCategoryModal()">
         <ion-icon slot="icon-only" name="add"></ion-icon>
       </ion-button>
     </ion-item>

@@ -176,6 +176,10 @@ export default class ExpenseListComponent {
     const modal = await this.modalCtrl.create({ component: ExpenseModalComponent, componentProps: {expense} });
     modal.present();
     const { role, data } = await modal.onWillDismiss();
+
+    if (role != "backdrop" && role != "cancel") {
+      this.loadExpenses();
+    }
   }
   
   async refresh(event: RefresherCustomEvent) {
