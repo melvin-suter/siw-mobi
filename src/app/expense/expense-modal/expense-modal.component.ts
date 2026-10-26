@@ -29,6 +29,7 @@ import { Category, Expense } from 'src/app/shared/domain';
 import { formatISO } from 'date-fns';
 import { APIService } from 'src/app/shared/service/api.service';
 import { firstValueFrom } from 'rxjs';
+import { ActionSheetService } from 'src/app/shared/service/action-sheet.service';
 
 @Component({
   selector: 'app-expense-modal',
@@ -62,6 +63,7 @@ export default class ExpenseModalComponent {
   private readonly fb = inject(FormBuilder);
   private api = inject(APIService);
   private readonly toast = inject(ToastController);
+  private readonly actionSheetService = inject(ActionSheetService);
 
   // Lifecycle
 
@@ -82,7 +84,39 @@ export default class ExpenseModalComponent {
   }
 
   delete(): void {
-    this.modalCtrl.dismiss(null, 'delete');
+    
+    this.actionSheetService
+      .showDeletionConfirmation('Are you sure you want to delete this expense?')
+      .subscribe( () => {
+
+        this.api.fetch(`expenses/${this.expense?.id}`, "DELETE").subscribe({
+          next: () => {
+            this.toast.create({
+              message: "Expense deleted",
+              duration: 3000,
+              position: 'bottom',
+              color: 'success',
+              icon: 'checkmark-circle'
+            })
+            .then(toast => toast.present());
+            
+            this.modalCtrl.dismiss(null, 'delete');
+          },
+          error: (e) => {
+            console.log(e);
+            this.toast.create({
+              message: "Could not delete expense\n" + e.error.message,
+              duration: 5000,
+              position: 'bottom',
+              color: 'warning',
+              icon: 'warning'
+            })
+            .then(toast => toast.present());
+          }
+        })
+
+    });
+
   }
 
   add(): void {
@@ -101,7 +135,7 @@ export default class ExpenseModalComponent {
         })
         .then(toast => toast.present());
         
-        this.modalCtrl.dismiss(null, 'add');
+        this.modalCtrl.dismiss(null, 'save');
       },
       error: (e) => {
         console.log(e);
