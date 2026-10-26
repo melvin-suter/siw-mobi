@@ -6,6 +6,7 @@ import { add, alertCircleOutline, arrowBack, arrowForward, pricetag, search, swa
 import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton, IonItemDivider, IonItemGroup, IonList } from '@ionic/angular/standalone';
 import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
 import { Expense } from 'src/app/shared/domain';
+import ExpenseModalComponent from '../expense-modal/expense-modal.component';
 
 @Component({
   selector: 'app-expense-list',
@@ -112,9 +113,13 @@ export default class ExpenseListComponent {
       }]
     }
   ]
-  
 
-  addMonths = (number: number): void => {
-    this.date = addMonths(this.date, number);
-  };
+
+
+  async openModal(expense?:Expense): Promise<void> {
+    const modal = await this.modalCtrl.create({ component: ExpenseModalComponent, componentProps: {expense} });
+    modal.present();
+    const { role, data } = await modal.onWillDismiss();
+
+  }
 }

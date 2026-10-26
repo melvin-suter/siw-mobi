@@ -1,1 +1,94 @@
-Expense Modal
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">
+        <ion-icon slot="start" name="close"></ion-icon>
+        Cancel
+      </ion-button>
+    </ion-buttons>
+
+    @if(expense){
+      <ion-title>Edit expense</ion-title>
+    } @else {
+      <ion-title>Add expense</ion-title>
+    }
+
+    <ion-buttons slot="end">
+      @if(expense){
+        <ion-button [disabled]="form.invalid" (click)="save()">
+          <ion-icon slot="start" name="save"></ion-icon>
+          Save
+        </ion-button>
+      } @else {
+        <ion-button [disabled]="form.invalid" (click)="add()">
+          <ion-icon slot="start" name="save"></ion-icon>
+          Add
+        </ion-button>
+      }
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-icon name="text" slot="start"></ion-icon>
+      <ion-input formControlName="name" placeholder="Name" maxlength="40" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="pricetag" slot="start"></ion-icon>
+
+      <ion-select
+        formControlName="category"
+        interface="popover"
+        placeholder="Category">
+        <ion-select-option [value]="null"></ion-select-option>
+        
+          <ion-select-option [value]="1">Cat 1</ion-select-option>
+          <ion-select-option [value]="2">Cat 2</ion-select-option>
+        
+      </ion-select>
+
+      <ion-button slot="end" size="small">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="cash" slot="start"></ion-icon>
+          <ion-input
+            formControlName="amount"
+            type="number"
+            inputmode="decimal"
+            step="0.01"
+            min="0.01"
+            placeholder="Amount"
+            required>
+          </ion-input>
+          <ion-note slot="end">CHF</ion-note>
+    </ion-item>
+    <ion-item>
+     
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <ion-datetime-button datetime="date"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="date"
+            formControlName="date"
+            presentation="date">
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+      
+    </ion-item>
+  </form>
+
+  @if(expense) {
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button color="danger" (click)="delete()">
+        <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+  }
+</ion-content>
