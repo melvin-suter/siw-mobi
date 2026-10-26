@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonButtons, IonHeader, IonMenuButton, IonProgressBar, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
@@ -14,13 +14,10 @@ import { IonButtons, IonHeader, IonMenuButton, IonProgressBar, IonTitle, IonTool
     IonProgressBar,
   ],
 })
-export class PageHeaderComponent  implements OnInit {
+export class PageHeaderComponent {
 
-  @Input() loading:boolean = false;
-  @Input() page_title:string = "";
+  @Input() loading = false;
+  @Input() page_title = "";
 
-  constructor() { }
-
-  ngOnInit() {}
-
+  
 }

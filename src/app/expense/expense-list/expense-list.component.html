@@ -2,14 +2,14 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+    <ion-refresher-content/>
   </ion-refresher>
 
     <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-item>
-                    <ion-icon slot="start" name="swap-vertical"></ion-icon>
+                    <ion-icon slot="start" name="swap-vertical"/>
                     <ion-select interface="popover" placeholder="Sort" [value]="sort()" (ionChange)="sort.set($event.detail.value)">
                         <ion-select-option value="createdAt,DESC">Created at (newest first)</ion-select-option>
                         <ion-select-option value="createdAt,ASC">Created at (oldest first)</ion-select-option>
@@ -22,7 +22,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-icon slot="start" name="pricetag"></ion-icon>
+                    <ion-icon slot="start" name="pricetag"/>
                     <ion-select interface="popover" placeholder="Category" [value]="selectedCategories()" [multiple]="true"  (ionChange)="selectedCategories.set($event.detail.value)">>
                         @for(category of categories; track category.id) {
                             <ion-select-option [value]="category.id">{{ category.name }}</ion-select-option>
@@ -32,8 +32,8 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-icon slot="start" name="search"></ion-icon>
-                    <ion-input [value]="search()" (ionInput)="search.set($event.detail.value ?? '')" debounce="300" placeholder="Search"/>
+                    <ion-icon slot="start" name="search"/>
+                    <ion-input debounce="300" placeholder="Search" [value]="search()" (ionInput)="search.set($event.detail.value ?? '')"/>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -46,7 +46,7 @@
                                 <ion-item-group>
                                     <ion-item-divider>
                                         <ion-label>
-                                        <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
+                                        <ion-skeleton-text style="width: 80px" [animated]="true"/>
                                         </ion-label>
                                     </ion-item-divider>
 
@@ -56,13 +56,13 @@
                                             <ion-grid>
                                             <ion-row>
                                                 <ion-col>
-                                                <ion-skeleton-text [animated]="true" style="width: 70%"></ion-skeleton-text>
+                                                <ion-skeleton-text style="width: 70%" [animated]="true" />
                                                 </ion-col>
                                                 <ion-col class="ion-text-center">
-                                                <ion-skeleton-text [animated]="true" style="width: 50%; margin: auto"></ion-skeleton-text>
+                                                <ion-skeleton-text style="width: 50%; margin: auto" [animated]="true" />
                                                 </ion-col>
                                                 <ion-col class="ion-text-end">
-                                                <ion-skeleton-text [animated]="true" style="width: 40%; margin-left: auto"></ion-skeleton-text>
+                                                <ion-skeleton-text style="width: 40%; margin-left: auto" [animated]="true" />
                                                 </ion-col>
                                             </ion-row>
                                             </ion-grid>
@@ -91,7 +91,7 @@
                                                 <ion-col>{{expense.name}}</ion-col>
                                                 <ion-col class="ion-text-center">
                                                     @if (expense.category) {
-                                                        <ion-icon name="pricetag"></ion-icon> {{expense.category.name}}
+                                                        <ion-icon name="pricetag"/> {{expense.category.name}}
                                                     }
                                                 </ion-col>
                                                 <ion-col class="ion-text-end">CHF {{expense.amount}}</ion-col>
@@ -107,7 +107,7 @@
                             
                         } @empty {
                             <ion-item>
-                                <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+                                <ion-icon slot="start" name="alert-circle-outline"/>
                                 <ion-label>No expenses found</ion-label>
                             </ion-item>
                         }
@@ -115,11 +115,10 @@
                         @if(grouped_expenses.length > 0) {
                             
 
-                            <ion-infinite-scroll (ionInfinite)="loadMore($event)" [disabled]="noMoreData()">
+                            <ion-infinite-scroll [disabled]="noMoreData()" (ionInfinite)="loadMore($event)" >
                                 <ion-infinite-scroll-content
                                     loadingSpinner="dots"
-                                    loadingText="Lade mehr...">
-                                </ion-infinite-scroll-content>
+                                    loadingText="Lade mehr..."/>
                             </ion-infinite-scroll>
                         }
                     }
@@ -130,7 +129,7 @@
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="openModal()">
         <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+            <ion-icon name="add"/>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
@@ -140,7 +139,7 @@
   <ion-toolbar>
     <ion-buttons slot="start" (click)="changeSelector(-1)">
       <ion-button fill="clear">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        <ion-icon slot="icon-only" name="arrow-back"/>
       </ion-button>
     </ion-buttons>
 
@@ -148,7 +147,7 @@
 
     <ion-buttons slot="end" (click)="changeSelector(1)">
       <ion-button fill="clear">
-        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+        <ion-icon slot="icon-only" name="arrow-forward"/>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

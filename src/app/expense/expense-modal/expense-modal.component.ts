@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, viewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, signal, viewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, calendar, cash, close, pricetag, save, text, trash } from 'ionicons/icons';
@@ -57,7 +57,7 @@ import { ActionSheetService } from 'src/app/shared/service/action-sheet.service'
     IonDatetimeButton,
   ]
 })
-export default class ExpenseModalComponent {
+export default class ExpenseModalComponent implements OnInit {
   // DI
   private readonly modalCtrl = inject(ModalController);
   private readonly fb = inject(FormBuilder);
@@ -157,7 +157,6 @@ export default class ExpenseModalComponent {
 
   nameInput = viewChild.required<IonInput>('nameInput')
   async ngOnInit() {
-
     if (this.expense) {
       this.form.patchValue({ categoryId: this.expense.category?.id ,date: this.expense.date, amount: this.expense.amount,name: this.expense.name });
     }
@@ -170,12 +169,12 @@ export default class ExpenseModalComponent {
 
   categories:Category[] = [];
   async loadCategories(pageInit?:number) {
-    let page = pageInit ?? 0;
+    const page = pageInit ?? 0;
     if (page == 0) {
       this.categories = [];
     }
 
-    let data = await firstValueFrom(this.api.fetch<{content: Category[], totalPages: number, sort: 'name,ASC'}>('categories', 'GET',undefined,{page}))
+    const data = await firstValueFrom(this.api.fetch<{content: Category[], totalPages: number, sort: 'name,ASC'}>('categories', 'GET',undefined,{page}))
     this.categories = [...this.categories, ...data.content];
     if (data.totalPages > page + 1) {
       await this.loadCategories(page + 1)
@@ -189,10 +188,10 @@ export default class ExpenseModalComponent {
     const { role, data } = await categoryModal.onWillDismiss();
     
     if (role == "add") {
-      let res = await firstValueFrom(this.api.fetch("categories", "PUT", data));
+      await firstValueFrom(this.api.fetch("categories", "PUT", data));
       await this.loadCategories();
       // in a GOOD backend you get an id here, and don't have to fish for it....
-      for(let c of this.categories) {
+      for(const c of this.categories) {
         if(c.name == data.name) {
           this.form.controls.categoryId.setValue(c.id!)
         }

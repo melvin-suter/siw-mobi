@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">
-        <ion-icon slot="start" name="close"></ion-icon>
+        <ion-icon slot="start" name="close"/>
         Cancel
       </ion-button>
     </ion-buttons>
@@ -16,12 +16,12 @@
     <ion-buttons slot="end">
       @if(category){
         <ion-button [disabled]="form.invalid" (click)="save()">
-          <ion-icon slot="start" name="save"></ion-icon>
+          <ion-icon slot="start" name="save"/>
           Save
         </ion-button>
       } @else {
         <ion-button [disabled]="form.invalid" (click)="add()">
-          <ion-icon slot="start" name="save"></ion-icon>
+          <ion-icon slot="start" name="save"/>
           Add
         </ion-button>
       }
@@ -33,15 +33,15 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form">
     <ion-item>
-      <ion-icon name="text" slot="start"></ion-icon>
-      <ion-input formControlName="name" placeholder="Name" maxlength="40" required></ion-input>
+      <ion-icon name="text" slot="start"/>
+      <ion-input formControlName="name" placeholder="Name" maxlength="40" required/>
     </ion-item>
   </form>
 
   @if(category) {
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
         <ion-fab-button color="danger" (click)="delete()">
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon name="trash"/>
         </ion-fab-button>
     </ion-fab>
   }

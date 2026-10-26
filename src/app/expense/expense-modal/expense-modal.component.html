@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">
-        <ion-icon slot="start" name="close"></ion-icon>
+        <ion-icon slot="start" name="close"/>
         Cancel
       </ion-button>
     </ion-buttons>
@@ -19,18 +19,18 @@
       @if(expense){
         <ion-button [disabled]="form.invalid || showSpinner()" (click)="save()">
           @if (showSpinner()) {
-            <ion-spinner slot="start" name="crescent"></ion-spinner>
+            <ion-spinner slot="start" name="crescent"/>
           } @else {
-            <ion-icon slot="start" name="save"></ion-icon>
+            <ion-icon slot="start" name="save"/>
           }
           Save
         </ion-button>
       } @else {
         <ion-button [disabled]="form.invalid || showSpinner()" (click)="add()">
           @if (showSpinner()) {
-            <ion-spinner slot="start" name="crescent"></ion-spinner>
+            <ion-spinner slot="start" name="crescent"/>
           } @else {
-            <ion-icon slot="start" name="save"></ion-icon>
+            <ion-icon slot="start" name="save"/>
           }
           Add
         </ion-button>
@@ -43,17 +43,17 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form">
     <ion-item>
-      <ion-icon name="text" slot="start"></ion-icon>
-      <ion-input formControlName="name" placeholder="Name" maxlength="40" required #nameInput></ion-input>
+      <ion-icon name="text" slot="start"/>
+      <ion-input #nameInput formControlName="name" placeholder="Name" maxlength="40" required />
     </ion-item>
     <ion-item>
-      <ion-icon name="pricetag" slot="start"></ion-icon>
+      <ion-icon name="pricetag" slot="start"/>
 
       <ion-select
         formControlName="categoryId"
         interface="popover"
         placeholder="Category">
-        <ion-select-option [value]="null"></ion-select-option>
+        <ion-select-option [value]="null"/>
           @for(category of categories; track category.id) {
             <ion-select-option [value]="category.id">{{category.name}}</ion-select-option>
           }
@@ -61,11 +61,11 @@
       </ion-select>
 
       <ion-button slot="end" size="small" (click)="showCategoryModal()">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
+        <ion-icon slot="icon-only" name="add"/>
       </ion-button>
     </ion-item>
     <ion-item>
-      <ion-icon name="cash" slot="start"></ion-icon>
+      <ion-icon name="cash" slot="start"/>
           <ion-input
             formControlName="amount"
             type="number"
@@ -73,21 +73,19 @@
             step="0.01"
             min="0.01"
             placeholder="Amount"
-            required>
-          </ion-input>
+            required/>
           <ion-note slot="end">CHF</ion-note>
     </ion-item>
     <ion-item>
      
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-datetime-button datetime="date"></ion-datetime-button>
+      <ion-icon name="calendar" slot="start"/>
+      <ion-datetime-button datetime="date"/>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
           <ion-datetime
             id="date"
             formControlName="date"
-            presentation="date">
-          </ion-datetime>
+            presentation="date"/>
         </ng-template>
       </ion-modal>
       
@@ -97,7 +95,7 @@
   @if(expense) {
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
         <ion-fab-button color="danger" (click)="delete()">
-        <ion-icon name="trash"></ion-icon>
+        <ion-icon name="trash"/>
         </ion-fab-button>
     </ion-fab>
   }

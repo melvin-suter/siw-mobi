@@ -1,9 +1,9 @@
-import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
-import { addMonths, set } from 'date-fns';
+import { Component, computed, effect, inject, OnInit, signal, untracked } from '@angular/core';
+import { set } from 'date-fns';
 import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, arrowBack, arrowForward, pricetag, search, swapVertical } from 'ionicons/icons';
-import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton, IonItemDivider, IonItemGroup, IonList, IonInfiniteScroll, IonInfiniteScrollContent, InfiniteScrollCustomEvent, RefresherCustomEvent, IonRefresher, IonRefresherContent, IonSkeletonText } from '@ionic/angular/standalone';
+import { IonRow, IonTitle, IonToolbar, ModalController, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFooter, IonButton, IonButtons, IonFab, IonFabButton, IonItemDivider, IonItemGroup, IonList, IonInfiniteScroll, IonInfiniteScrollContent, InfiniteScrollCustomEvent, RefresherCustomEvent, IonRefresher, IonRefresherContent, IonSkeletonText } from '@ionic/angular/standalone';
 import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
 import { Category, Expense } from 'src/app/shared/domain';
 import ExpenseModalComponent from '../expense-modal/expense-modal.component';
@@ -42,7 +42,7 @@ import { firstValueFrom } from 'rxjs';
     PageHeaderComponent,
   ]
 })
-export default class ExpenseListComponent {
+export default class ExpenseListComponent implements OnInit {
   // DI
   private readonly modalCtrl = inject(ModalController);
   private api = inject(APIService);
@@ -108,7 +108,7 @@ export default class ExpenseListComponent {
   }
 
   loadCategories(pageInit?:number) {
-    let page = pageInit ?? 0;
+    const page = pageInit ?? 0;
     if (page == 0) {
       this.categories = [];
     }
@@ -134,14 +134,14 @@ export default class ExpenseListComponent {
       this.skeleton.set(true)
     }
 
-    let data = await firstValueFrom(this.api.fetch<{content: Expense[], totalPages: number}>('expenses', 'GET',undefined,{...this.query(), page: this.page()}))
+    const data = await firstValueFrom(this.api.fetch<{content: Expense[], totalPages: number}>('expenses', 'GET',undefined,{...this.query(), page: this.page()}))
     
     this.totalPages.set(data.totalPages);
     this.page.set(Math.min(this.page(), this.totalPages() - 1))
 
-    let new_grouped:{date: string, expenses: Expense[]}[] = (append ? this.grouped_expenses : [])
-    for(let expense of data.content) {
-      let group = new_grouped.find(i => i.date == expense.date)
+    const new_grouped:{date: string, expenses: Expense[]}[] = (append ? this.grouped_expenses : [])
+    for(const expense of data.content) {
+      const group = new_grouped.find(i => i.date == expense.date)
       if(group) {
         group.expenses.push(expense)
       } else {
@@ -175,7 +175,7 @@ export default class ExpenseListComponent {
   async openModal(expense?:Expense): Promise<void> {
     const modal = await this.modalCtrl.create({ component: ExpenseModalComponent, componentProps: {expense} });
     modal.present();
-    const { role, data } = await modal.onWillDismiss();
+    const { role } = await modal.onWillDismiss();
 
     if (role != "backdrop" && role != "cancel") {
       this.loadExpenses();

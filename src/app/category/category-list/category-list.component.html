@@ -5,7 +5,7 @@
         <ion-row>
             <ion-col>
                 <ion-item>
-                    <ion-icon slot="start" name="swap-vertical"></ion-icon>
+                    <ion-icon slot="start" name="swap-vertical"/>
                     <ion-select interface="popover" placeholder="Sort" [value]="sort()" (ionChange)="sort.set($event.detail.value)">
                         <ion-select-option value="createdAt,DESC">Created at (newest first)</ion-select-option>
                         <ion-select-option value="createdAt,ASC">Created at (oldest first)</ion-select-option>
@@ -16,8 +16,8 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-icon slot="start" name="search"></ion-icon>
-                    <ion-input [value]="search()" (ionInput)="search.set($event.detail.value ?? '')" debounce="300" placeholder="Search"/>
+                    <ion-icon slot="start" name="search"/>
+                    <ion-input debounce="300" placeholder="Search" [value]="search()" (ionInput)="search.set($event.detail.value ?? '')"/>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -29,7 +29,7 @@
                         </ion-item>
                     } @empty {
                         <ion-item>
-                            <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+                            <ion-icon slot="start" name="alert-circle-outline"/>
                             <ion-label>No categories found</ion-label>
                         </ion-item>
                     }
@@ -39,7 +39,7 @@
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="newCategory()">
         <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+            <ion-icon name="add"/>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
@@ -49,7 +49,7 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-button [disabled]="page() === 0" (click)="page.set(page() - 1)">
-                <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+                <ion-icon slot="icon-only" name="chevron-back"/>
             </ion-button>
         </ion-buttons>
 
@@ -57,7 +57,7 @@
 
         <ion-buttons slot="end">
             <ion-button [disabled]="page() + 1 >= totalPages" (click)="page.set(page() + 1)">
-                <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+                <ion-icon slot="icon-only" name="chevron-forward"/>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

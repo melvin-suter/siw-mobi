@@ -1,5 +1,5 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { IonRow, IonTitle, IonToolbar, ModalController, IonHeader, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFab, IonFabButton, ToastController, IonButtons, IonMenuButton, IonButton, IonFooter } from '@ionic/angular/standalone';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { IonRow, IonTitle, IonToolbar, ModalController, IonGrid, IonCol, IonSelect, IonSelectOption, IonIcon, IonItem, IonContent, IonInput, IonLabel, IonFab, IonFabButton, ToastController, IonButtons, IonButton, IonFooter } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { add, alertCircleOutline, checkmarkCircle, chevronBack, chevronForward, search, swapVertical, warning } from 'ionicons/icons';
@@ -7,7 +7,6 @@ import CategoryModalComponent from '../category-modal/category-modal.component';
 import { APIService } from 'src/app/shared/service/api.service';
 import { Category } from 'src/app/shared/domain';
 import { PageHeaderComponent } from 'src/app/shared/components/page-header/page-header.component';
-import { ActionSheetService } from 'src/app/shared/service/action-sheet.service';
 
 
 @Component({
@@ -36,7 +35,7 @@ import { ActionSheetService } from 'src/app/shared/service/action-sheet.service'
     IonFooter,
   ]
 })
-export default class CategoryListComponent {
+export default class CategoryListComponent implements OnInit {
 
   // DI
   private readonly modalCtrl = inject(ModalController);
