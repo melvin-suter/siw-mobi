@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonButtons, IonHeader, IonMenuButton, IonProgressBar, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-page-header',
@@ -11,10 +11,12 @@ import { IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar } from '@ion
     IonButtons,
     IonTitle,
     IonToolbar,
+    IonProgressBar,
   ],
 })
 export class PageHeaderComponent  implements OnInit {
 
+  @Input() loading:boolean = false;
   @Input() page_title:string = "";
 
   constructor() { }
